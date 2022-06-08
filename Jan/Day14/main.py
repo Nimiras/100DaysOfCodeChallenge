@@ -3,15 +3,6 @@ import random
 import art
 import game_data
 
-#defineing nessecary variables (points)
-print(art.logo)
-points = 0
-object1 = {}
-object2 = {}
-playing = True
-
-
-
 # function to return a random object from the list of guessable objects
 def choose_object():
     unique = False
@@ -47,13 +38,18 @@ def compare(object1, object2, players_choise):
             return True
 
 
+#defineing nessecary variables (points)
+print(art.logo)
+points = 0
+object1 = {}
+object2 = {}
+playing = True
 
-# a while-loop that runs as long the player guesses correctly
-# players_choise can only be "h" (Higher) or "l" (lower)
+#chooseing two objects from the database
 object1 = choose_object()
 object2 = choose_object()
 
-    #starting and printing a comparison:
+#starting and printing a comparison:
 while playing:
     print_information(object1, True)
     print(art.vs)
@@ -69,6 +65,7 @@ while playing:
         points += 1
         print(f"{name_o2} has {follower_o2} million followers")
         print("That was correct!")
+        #object 2 becomes object 1 and object 2 gets chosen randomly
         temp = object2
         object2 = choose_object()
         object1 = temp
