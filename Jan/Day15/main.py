@@ -30,7 +30,7 @@ resources = {
     "coffee": 100,
 }
 hello
-
+test
 running = True
 money = 0
 
