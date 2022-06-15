@@ -29,26 +29,39 @@ resources = {
     "milk": 200,
     "coffee": 100,
 }
-hello
-test
+
 running = True
 money = 0
-
 def enougth_ingredients(drink):
     ingredients = MENU[drink]
-    if drink = "espresso":
+    if drink == "espresso":
         if ingredients["water"] <= resources["water"] and ingredients["milk"] <= resources["milk"]:
-
+            return True
+        else:
+            return False
     else:
         if ingredients["water"] <= resources["water"] and ingredients["milk"] <= resources["milk"] and ingredients["coffee"] <= resources["coffee"]:
+            return True
+        else:
+            return False
+
 
 
 while running:
     command = input("​What would you like? (espresso/latte/cappuccino):​ ")
     if command == "report":
-        print(resources)
-        print(f"Money: {money}")
+        water = resources["water"]
+        coffee = resources["coffee"]
+        milk = resources["milk"]
+        print(f"Water: {water}\n"
+              f"Coffee: {coffee}\n"
+              f"Milk: {milk}\n"
+              f"Money: {money}")
     elif command == "off":
         print("shutting down ...")
         running = False
     elif command == "espresso" or command == "latte" or command == "cappuccino":
+        if enougth_ingredients(command):
+
+    else:
+        print("Wrong input")
