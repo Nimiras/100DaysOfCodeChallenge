@@ -38,6 +38,7 @@ COINS = {
 }
 
 running = True
+global money
 money = 0
 def enougth_ingredients(drink):
     """Returns True when there are enough ingreedients in the machine to dispend a drink and False if not."""
@@ -64,6 +65,7 @@ def enougth_ingredients(drink):
             return False
 
 def process_coin():
+    """Asks the user how many coins they're want to insert and returns the sum of all the inserted coins"""
     print("How many coins do you want to insert?")
     quaters = int(input("Quaters: "))
     dimes = int(input("Dimes: "))
@@ -72,13 +74,25 @@ def process_coin():
     return quaters * COINS["quaters"] + dimes * COINS["dimes"] + nickles * COINS["nickles"] + pennies * COINS["pennies"]
 
 def transaction(cost, sum, drink):
+    """
+    Checks the cost and the amount of money that was put in the function to determin if the user gave the machine enough money and if so
+    removes the ingredients or outputs the change
+    """
     if sum < cost:
         print("Sorry that's not enough money. Money refunded.")
         return 0
     elif sum >= cost:
-        sum -= cost
+        global money
         money += cost
-        print("Nice")
+        resources["water"] -= MENU[drink]["ingredients"]["water"]
+        resources["coffee"] -= MENU[drink]["ingredients"]["coffee"]
+        if drink != "espresso":
+            resources["milk"] -= MENU[drink]["ingredients"]["milk"]
+        print(f"You inserted {sum}$\n"
+              f"The drink costs {cost}$")
+        if sum > cost:
+            print(f"Here is {str(sum - cost)} $ in change!")
+        print("Enjoy your drink")
 
 
 while running:
@@ -96,7 +110,8 @@ while running:
         running = False
     elif command == "espresso" or command == "latte" or command == "cappuccino":
         if enougth_ingredients(command):
-            sum = process_coin(command)
+            sum = process_coin()
+            transaction(MENU[command]["cost"], sum, command)
 
     else:
         print("Wrong input")
